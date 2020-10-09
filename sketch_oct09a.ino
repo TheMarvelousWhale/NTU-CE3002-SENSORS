@@ -19,22 +19,29 @@ void loop() {
   sig=analogRead(A0);
   Serial.println(sig);
 
-  int const thres = 945;
-  int rounds = 10;
-  int lastTime =0,tic, period;
+  int const thres = 945;  //threshold value for peak
+  int rounds = 10;        // number of samples
+  int lastTime =0,tic, period;        //variables for timing calculation
+  
+  //We will calculate the period of one pulse by calculating peak to peak
+  //By exploiting the peak cap 2nd timing
+  //As long as thres is in between the highest peak and second peak of a pulse
   for (int nani =0; nani < rounds; nani++) {
   if (sig>thres )
     {
-    while(sig>thres) ;
-    buzz();
+    while(sig>thres) ;                     //idle waiting for peak to be over
+    buzz();                                //buzz for pulse for fun
     tic = millis() ;
     if (lastTime!=0)
-       period = period+ (tic-lastTime) ;
+       period = period+ (tic-lastTime) ;  //forgo first sample as millis() hasnt been called twice
     lastTime = tic;
     } 
   } 
-   
+  
+  //calc heart rate
   int heartrate = (rounds-1)*1000*60/period;
+
+  //shine LED accordingly
   if (heartrate >=100 && heartrate <160 )  
      OnOnlyThisLED(YellowLED) ;
   else if (heartrate >= 40 && heartrate <100) 
@@ -44,6 +51,7 @@ void loop() {
 }
 
 void buzz() {
+  //buzz a short 20ms pulse to buzzer
   analogWrite(BUZZPIN, 250);
   delay(20);
   analogWrite(BUZZPIN,0); 
