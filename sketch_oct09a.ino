@@ -1,7 +1,7 @@
 #define BUZZPIN 8
-#define GreenLED 7
+#define RedLED 7
 #define YellowLED 6
-#define RedLED 5 
+#define GreenLED  5
 
 void setup() {
   // put your setup code here, to run once:
