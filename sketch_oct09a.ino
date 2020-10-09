@@ -47,7 +47,7 @@ void loop() {
   else if (heartrate >= 40 && heartrate <100) 
      OnOnlyThisLED(GreenLED) ;
   else 
-     ONonlyThisLED(RedLED) ;
+     OnOnlyThisLED(RedLED) ;
 }
 
 void buzz() {
@@ -61,7 +61,7 @@ void buzz() {
 void offAllLEDs() {
   digitalWrite(GreenLED, LOW);
   digitalWrite(YellowLED, LOW) ;
-  digitalWrite(GreenLED, LOW) ;
+  digitalWrite(RedLED, LOW) ;
   }
 
 void OnOnlyThisLED(int pin) {
