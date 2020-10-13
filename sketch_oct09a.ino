@@ -89,12 +89,16 @@ void loop() {
   Serial.println(sig);
   if(sig>945) 
    {
+        while(sig > 945){
+          sig = analogRead(A0);
+          Serial.println(sig);
+        }
         buzz();
         now = millis();
         period = 0.7*period + 0.3*(now-last);
         last = now;
         int heartrate = 60000/period;
-        Serial.print("Heart rate is: ");Serial.println(heartrate);
+        //Serial.print("Heart rate is: ");Serial.println(heartrate);
         //shine LED accordingly
         if (heartrate >=100 && heartrate <160 )  
            OnOnlyThisLED(YellowLED) ;
@@ -103,5 +107,8 @@ void loop() {
         else 
            OnOnlyThisLED(RedLED) ;
       }
-      delay(150);
+      //delay(150);
+  }
+
+  
   }
